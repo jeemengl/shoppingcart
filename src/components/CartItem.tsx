@@ -9,7 +9,8 @@ type CartItemProps = {
 }
 
 export function CartItem({ id, quantity }: CartItemProps) {
-  const { removeFromCart } = useShoppingCart()
+  const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
+
   const item = storeItems.find(i => i.id === id)
   if (item == null) return null
 
@@ -31,6 +32,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div className="text-muted" style={{ fontSize: ".75rem" }}>
           {formatCurrency(item.price)}
         </div>
+      </div>
+      <div><Button size="sm" onClick={() => decreaseCartQuantity(id)}>-</Button>
+           <Button size="sm" onClick={() => increaseCartQuantity(id)}>+</Button>
       </div>
       <div> {formatCurrency(item.price * quantity)}</div>
       <Button
